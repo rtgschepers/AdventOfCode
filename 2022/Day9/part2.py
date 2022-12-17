@@ -11,7 +11,7 @@ def get_tree_score(y, x, grid):
 
 
 forest = []
-for line in [x.replace('\n', '') for x in open('input.txt')]:
+for line in [x.replace('\n', '') for x in open('test.txt')]:
     forest.append([int(x) for x in [*line]])
 forest = np.array(forest)
 

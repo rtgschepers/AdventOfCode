@@ -1,14 +1,12 @@
-import math
+def move_head(axis, steps):
+    return()
 
-a = (0, 0)
-b = (1, 1)
-c = (1, 2)
-d = (0, 2)
-
-print(math.dist(a, b))
-print(math.dist(a, c))
-print(math.dist(a, d))
-
-
-# for line in [x.replace('\n', '') for x in open('test.txt')]:
-#     print(line)
+head = [(0, 0)]
+tail = [(0, 0)]
+for line in [x.replace('\n', '') for x in open('test.txt')]:
+    match line.split():
+        case 'U', x: head.append(move_head(head[len(head) - 1][1], x))
+        case 'D', x: head.append(move_head(head[len(head) - 1][1], x * -1))
+        case 'L', x: head.append(move_head(head[len(head) - 1][0], x * -1))
+        case 'R', x: head.append(move_head(head[len(head) - 1][0], x))
+print(head)
