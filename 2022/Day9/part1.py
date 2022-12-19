@@ -22,7 +22,7 @@ def move_tail(axis, direction):
         path.append(tail.copy())
 
 
-for line in [x.replace('\n', '') for x in open('input.txt')]:
+for line in [x.replace('\n', '') for x in open('test1.txt')]:
     match line.split():
         case 'U', x: move_head(1, int(x), 1)
         case 'D', x: move_head(1, int(x), -1)
