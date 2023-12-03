@@ -1,5 +1,3 @@
-import re
-
 text_int_map = {
     'one': 1,
     'two': 2,
@@ -13,10 +11,6 @@ text_int_map = {
 }
 
 
-def get_possible_matches(char):
-    return [x for x in text_int_map.keys() if x and x[0] == char]
-
-
 total = 0
 with open('input.txt') as f:
     for line in f:
@@ -27,7 +21,7 @@ with open('input.txt') as f:
                 numbers.append(c)
                 continue
 
-            matches = get_possible_matches(c)
+            matches = [x for x in text_int_map.keys() if x and x[0] == c]
             for match in matches:
                 if line[i:i + len(match)] == match:
                     numbers.append(text_int_map[match])
