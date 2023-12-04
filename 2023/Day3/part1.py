@@ -49,6 +49,12 @@ def main():
             if has_neighbouring_symbol(grid, x, y):
                 symbol_adjacent = True
 
+        if symbol_adjacent:
+            valid_nums[y].append(int(number))
+
+        symbol_adjacent = False
+        number = ''
+
     flat = [x for y in valid_nums for x in y]
     print(sum(flat))
 
