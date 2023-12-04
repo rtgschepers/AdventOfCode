@@ -1,6 +1,3 @@
-neighbours = []
-
-
 def has_neighbouring_symbol(grid, x, y):
     height = len(grid)
     width = len(grid[0])
@@ -19,10 +16,7 @@ def has_neighbouring_symbol(grid, x, y):
             value = None
 
         if value is not None and not value.isnumeric() and value != '.':
-            if value not in neighbours:
-                neighbours.append(value)
             return True
-
     return
 
 
@@ -30,34 +24,26 @@ def main():
     with open('input.txt') as f:
         grid = [x.rstrip() for x in f.readlines()]
 
-    valid_nums = []
+    total = 0
     number = ''
     symbol_adjacent = False
     for y in range(len(grid)):
-        valid_nums.append([])
         for x in range(len(grid[y])):
             cell = grid[y][x]
             if not cell.isnumeric():
                 if symbol_adjacent:
-                    valid_nums[y].append(int(number))
-
+                    total += int(number)
                 symbol_adjacent = False
                 number = ''
                 continue
-
             number += cell
             if has_neighbouring_symbol(grid, x, y):
                 symbol_adjacent = True
-
         if symbol_adjacent:
-            valid_nums[y].append(int(number))
-
+            total += int(number)
         symbol_adjacent = False
         number = ''
-
-    flat = [x for y in valid_nums for x in y]
-    print(sum(flat))
+    print(total)
 
 
 main()
-print(neighbours)
