@@ -1,36 +1,10 @@
-def get_neighbours(grid, x, y):
+def has_neighbouring_symbol(grid, x, y):
     height = len(grid)
     width = len(grid[0])
 
-    neighbours = []
-    offsets = [{
-        'direction': 'top-left',
-        'offset': (-1, -1)
-    }, {
-        'direction': 'top',
-        'offset': (-1, 0)
-    }, {
-        'direction': 'top-right',
-        'offset': (-1, 1)
-    }, {
-        'direction': 'left',
-        'offset': (0, -1)
-    }, {
-        'direction': 'right',
-        'offset': (0, 1)
-    }, {
-        'direction': 'bottom-left',
-        'offset': (1, -1)
-    }, {
-        'direction': 'bottom',
-        'offset': (1, 0)
-    }, {
-        'direction': 'bottom-right',
-        'offset': (1, 1)
-    }]
+    offsets = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
 
-    for offset in offsets:
-        offset_x, offset_y = offset['offset']
+    for offset_x, offset_y in offsets:
         new_x, new_y = x + offset_x, y + offset_y
 
         try:
@@ -41,12 +15,10 @@ def get_neighbours(grid, x, y):
         except IndexError:
             value = None
 
-        neighbours.append({
-            'direction': offset['direction'],
-            'value': value
-        })
+        if value is not None and not value.isnumeric() and value != '.':
+            return True
 
-    return neighbours
+    return
 
 
 def main():
@@ -69,10 +41,7 @@ def main():
                 continue
 
             number += cell
-            neighbours = get_neighbours(grid, x, y)
-            filtered = [x['value'] for x in neighbours if
-                        x['value'] is not None and not x['value'].isnumeric() and x['value'] != '.']
-            if len(filtered):
+            if has_neighbouring_symbol(grid, x, y):
                 symbol_adjacent = True
 
     flat = [x for y in valid_nums for x in y]
