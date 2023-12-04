@@ -9,8 +9,8 @@ total = 0
 with open('input.txt') as f:
     for line in f:
         parts = line.split(': ')
-        game_id = re.findall('\d+', parts[0])[0]
-        set_parts = re.findall('\d+ \w+', parts[1])
+        game_id = re.findall(r'\d+', parts[0])[0]
+        set_parts = re.findall(r'\d+ \w+', parts[1])
 
         possible = True
         for set_part in set_parts:
