@@ -1,3 +1,6 @@
+neighbours = []
+
+
 def has_neighbouring_symbol(grid, x, y):
     height = len(grid)
     width = len(grid[0])
@@ -16,6 +19,8 @@ def has_neighbouring_symbol(grid, x, y):
             value = None
 
         if value is not None and not value.isnumeric() and value != '.':
+            if value not in neighbours:
+                neighbours.append(value)
             return True
 
     return
@@ -49,3 +54,4 @@ def main():
 
 
 main()
+print(neighbours)
