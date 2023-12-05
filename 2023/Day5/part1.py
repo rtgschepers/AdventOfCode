@@ -1,16 +1,34 @@
-import math
 import re
 
-total = 0
-with open('input.txt') as f:
-    for line in f:
-        numbers = line.split(': ')[1].split(' | ')
-        win_nums = re.findall(r'\d+', numbers[0])
-        my_nums = re.findall(r'\d+', numbers[1])
-        my_win_nums = [x for x in my_nums if x in win_nums]
 
-        if len(my_win_nums) == 1:
-            total += 1
-        elif len(my_win_nums) > 1:
-            total += math.pow(2, len(my_win_nums) - 1)
-print(total)
+def calculate_destination(value, source, destination, map_range):
+    changed = False
+    if source <= value < source + map_range:
+        value += destination - source
+        changed = True
+    return value, changed
+
+
+def main():
+    with open('input.txt') as f:
+        content = f.read()
+
+    sections = content.split('\n\n')
+    seeds = [int(x) for x in re.findall(r'\d+', sections[0])]
+    answers = []
+
+    for seed in seeds:
+        value = seed
+        for section in sections[1:]:
+            maps = [[int(y) for y in x.split(' ')] for x in section.split('\n')[1:]]
+            for map_info in maps:
+                value, changed = calculate_destination(value, map_info[1], map_info[0], map_info[2])
+                if changed:
+                    break
+        answers.append({'seed': seed, 'location': value})
+
+    print(answers)
+    print(min([x['location'] for x in answers]))
+
+
+main()
