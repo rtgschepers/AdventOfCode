@@ -16,7 +16,7 @@ def has_neighbouring_symbol(grid, x, y):
             value = None
 
         if value is not None and value == '*':
-            return str(new_x) + str(new_y)
+            return 'x{}y{}'.format(str(new_x), str(new_y))
     return None
 
 
