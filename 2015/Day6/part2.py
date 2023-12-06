@@ -1,9 +1,14 @@
 import re
 
-nice = 0
+import numpy as np
+
+grid = np.zeros((1000, 1000))
 for line in [x.rstrip() for x in open('input.txt')]:
-    a = len(re.findall(r'(\w)(\w)\1', line)) > 0  # Contains at least 3 vowels
-    b = len(re.findall(r'(\w\w).*\1', line)) > 0  # Contains repeating character pair
-    if a and b:
-        nice += 1
-print(nice)
+    instruction = re.findall(r'toggle|turn off|turn on', line)[0]
+    x1, y1, x2, y2 = [int(x) for x in re.findall(r'\d+', line)]
+    x2, y2 = x2 + 1, y2 + 1
+    if 'toggle' in instruction:
+        grid[y1:y2, x1:x2] += 2
+    else:
+        grid[y1:y2, x1:x2] += 1 if 'on' in instruction else -1
+print(np.sum(grid))
