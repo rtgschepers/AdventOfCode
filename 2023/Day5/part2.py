@@ -1,27 +1,37 @@
 import re
+import sys
 
-card_amounts = {}
-
-
-def add_card_amount(card):
-    if card not in card_amounts:
-        card_amounts[card] = 1
-    else:
-        card_amounts[card] += 1
-
+import numpy as np
 
 with open('input.txt') as f:
-    for line in f:
-        card_num = int(re.search(r'(\d+)', line).group())
-        add_card_amount(card_num)
+    content = f.read()
 
-        numbers = line.split(': ')[1].split(' | ')
-        win_nums = re.findall(r'\d+', numbers[0])
-        my_nums = re.findall(r'\d+', numbers[1])
-        my_win_nums = [x for x in my_nums if x in win_nums]
+sections = content.split('\n\n')
+seeds = [int(x) for x in re.findall(r'\d+', sections[0])]
+seeds = [seeds[i:i+2] for i in range(0, len(seeds), 2)]
+answer = sys.maxsize
 
-        for x in range(card_amounts[card_num]):
-            for y in range(len(my_win_nums)):
-                add_card_amount(card_num + (y + 1))
-print(sum(card_amounts.values()))
+for seed, seed_range in seeds:
+    print(seed, seed_range)
+    seed_vals = np.arange(seed, seed + seed_range)
+    cur_seeds = np.column_stack((seed_vals, np.zeros_like(seed_vals))).reshape((len(seed_vals), 2), order='F')
 
+    for section in sections[1:]:
+        print(section.split('\n')[0])
+        lowest = np.min(cur_seeds[:, 0])
+        highest = np.max(cur_seeds[:, 0])
+
+        for destination, source, map_range in [[int(y) for y in x.split(' ')] for x in section.split('\n')[1:]]:
+            if highest < source or lowest >= source + map_range:
+                continue
+
+            mask = (source <= cur_seeds[:, 0]) & (cur_seeds[:, 0] < source + map_range) & (cur_seeds[:, 1] == 0)
+            cur_seeds[mask, 0] += destination - source
+            cur_seeds[mask, 1] = 1
+
+            if np.count_nonzero(cur_seeds[:, 1] == 1) == len(cur_seeds):
+                break
+        cur_seeds[:, 1] = 0
+    lowest = np.min(cur_seeds[:, 0])
+    answer = min(answer, lowest)
+print(answer)
