@@ -19,11 +19,26 @@ Install the requirements
 3. Copy the value of the session cookie and paste it in _config.py.tpl_
 4. Remove the _.tpl_ extension, so you're left with _config.py_
 
-## How to use aoc.py
-> python ./aoc.py {year} {day}
+## The script aoc.py
+### What does it do
+This script will open a browser window or new tab to the puzzle specified by the arguments.\
+Next it creates 2 python files with some code to read the input file or test file.\
+Finally an input.txt will be generated with your puzzle input for the day, and an empty test.txt for testing purposes.\
 
-This script will generate 2 python files with some code to read the input file.\
-It will also generate an input.txt with your puzzle input for the day, and an empty test.txt for testing purposes.
+
+### How to use
+```bash
+usage: aoc.py [-h] year day                  
+                                             
+AOC management command.                      
+                                             
+positional arguments:                        
+  year        Year of the event, e.g. 2015   
+  day         Day of the puzzle, e.g. 5      
+                                             
+options:                                     
+  -h, --help  show this help message and exit
+```
 
 Example usage
-> python ./aoc.py 2015 1
+> python aoc.py 2015 1
