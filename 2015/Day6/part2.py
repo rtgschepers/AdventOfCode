@@ -9,6 +9,9 @@ for line in [x.rstrip() for x in open('input.txt')]:
     x2, y2 = x2 + 1, y2 + 1
     if 'toggle' in instruction:
         grid[y1:y2, x1:x2] += 2
+    elif 'on' in instruction:
+        grid[y1:y2, x1:x2] += 1
     else:
-        grid[y1:y2, x1:x2] += 1 if 'on' in instruction else -1
+        mask = grid[y1:y2, x1:x2] > 0
+        grid[y1:y2, x1:x2][mask] -= 1
 print(np.sum(grid))
