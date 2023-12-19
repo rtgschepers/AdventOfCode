@@ -1,5 +1,7 @@
 *.txt
 .idea
 /venv/
+!/config.py
 !/requirements.txt
+!/template.txt
 config.py

@@ -16,8 +16,8 @@ Install the requirements
 ### Acquire a valid session id
 1. Go to [Advent of Code](https://adventofcode.com/) and open the devtools.
 2. Navigate to Application -> Cookies
-3. Copy the value of the session cookie and paste it in _config.py.tpl_
-4. Remove the _.tpl_ extension, so you're left with _config.py_
+3. Copy the value of the session cookie and paste it in _config.txt_
+4. Change the _.txt_ extension to _.py_, so you're left with _config.py_
 
 ## The script aoc.py
 ### What does it do

@@ -1,0 +1,11 @@
+class Day{day}:
+    def __init__(self):
+        for line in [x.rstrip() for x in open('test.txt')]:
+            pass
+
+    def solve(self):
+        pass
+
+
+if __name__ == '__main__':
+    Day{day}().solve()

@@ -38,16 +38,9 @@ def create_new_puzzle_files(year, day):
     for part in parts:
         file_path = '{}/part{}.py'.format(path, part)
         if not Path(file_path).is_file():
-            with open(file_path, 'w') as f:
-                f.write('''def main():
-    for line in [x.rstrip() for x in open('test.txt')]:
-    
-        break
-
-
-if __name__ == '__main__':
-    main()
-'''.format(os.linesep))
+            with open('template.txt', 'r') as tpl:
+                with open(file_path, 'w') as f:
+                    f.write(tpl.read().format(day=day))
 
     file_path = '{}/test.txt'.format(path)
     if not Path(file_path).is_file():
