@@ -13,9 +13,10 @@ def main():
                         choices=generate_years(), metavar='year')
     parser.add_argument('day', help='Day of the puzzle, e.g. 5 ',
                         choices=generate_days(), metavar='day')
+    parser.add_argument('-o', '--open', action='store_true', help='Open the selected puzzle in the browser')
 
     args = parser.parse_args()
-    create_new_puzzle_files(args.year, args.day)
+    create_new_puzzle_files(args.year, args.day, args.open)
 
 
 def generate_years():
@@ -27,9 +28,11 @@ def generate_days():
     return [str(x) for x in range(1, 26)]
 
 
-def create_new_puzzle_files(year, day):
+def create_new_puzzle_files(year, day, open_browser):
     url = 'https://adventofcode.com/{}/day/{}'.format(year, day)
-    webbrowser.open(url, new=0, autoraise=True)
+
+    if open_browser:
+        webbrowser.open(url, new=0, autoraise=True)
 
     path = '{}/Day{}'.format(year, day)
     Path(path).mkdir(parents=True, exist_ok=True)
