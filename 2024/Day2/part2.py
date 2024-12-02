@@ -1,4 +1,5 @@
 import re
+import time
 
 
 class Day2:
@@ -40,4 +41,6 @@ class Day2:
 
 
 if __name__ == '__main__':
+    start_time = time.time()
     Day2().solve()
+    print(time.time() - start_time)
