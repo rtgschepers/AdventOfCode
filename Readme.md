@@ -23,7 +23,7 @@ Install the requirements
 ### What does it do
 This script will open a browser window or new tab to the puzzle specified by the arguments.\
 Next it creates 2 python files with some code to read the input file or test file.\
-Finally an input.txt will be generated with your puzzle input for the day, and an empty test.txt for testing purposes.\
+Finally an input.txt will be generated with your puzzle input for the day, and an empty test.txt for testing purposes.
 
 
 ### How to use
