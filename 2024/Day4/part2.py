@@ -22,13 +22,14 @@ class Day4:
             opposite = None
             for offset_x, offset_y in offsets:
                 new_x, new_y = x + offset_x, y + offset_y
+                value = self.grid[new_y][new_x]
 
-                if self.grid[new_y][new_x] == 'X':
+                if value != 'M' and value != 'S':
                     return False
 
                 if opposite is None:
-                    opposite = self.grid[new_y][new_x]
-                elif self.grid[new_y][new_x] != ('M' if opposite == 'S' else 'S'):
+                    opposite = value
+                elif value != ('M' if opposite == 'S' else 'S'):
                     return False
         return True
 
