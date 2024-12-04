@@ -22,4 +22,4 @@ class Day1:
 if __name__ == '__main__':
     start_time = time.time()
     Day1().solve()
-    print(time.time() - start_time)
+    print('Execution time: ' + str(time.time() - start_time))
