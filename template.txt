@@ -1,4 +1,4 @@
-import time
+from timeit import timeit
 
 
 class Day{day}:
@@ -11,6 +11,5 @@ class Day{day}:
 
 
 if __name__ == '__main__':
-    start_time = time.time()
-    Day{day}().solve()
-    print('Execution time: ' + str(time.time() - start_time))
+    time = timeit(lambda: Day{day}().solve(), number=1)
+    print(f'Execution time: {time:.4f}')

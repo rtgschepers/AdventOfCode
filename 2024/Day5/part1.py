@@ -1,4 +1,4 @@
-import time
+from timeit import timeit
 
 
 class Day5:
@@ -23,20 +23,14 @@ class Day5:
             correct = True
             for page in update:
                 for rule in self.rules:
-                    if page == rule[0]:
-                        if rule[1] in update and update.index(page) > update.index(rule[1]):
+                    if page in rule and rule[1 - rule.index(page)] in update:
+                        if rule != [x for x in update if x in rule]:
                             correct = False
-                            break
-                    elif page == rule[1]:
-                        if rule[0] in update and update.index(page) < update.index(rule[0]):
-                            correct = False
-                            break
             if correct:
                 ans += update[len(update) // 2]
         print('Result: ', ans)
 
 
 if __name__ == '__main__':
-    start_time = time.time()
-    Day5().solve()
-    print('Execution time: ', str(time.time() - start_time))
+    time = timeit(lambda: Day5().solve(), number=1)
+    print(f'Execution time: {time:.4f}')
