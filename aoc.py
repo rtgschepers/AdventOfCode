@@ -43,7 +43,7 @@ def create_new_puzzle_files(year, day, open_browser):
         if not Path(file_path).is_file():
             with open('template.txt', 'r') as tpl:
                 with open(file_path, 'w') as f:
-                    f.write(tpl.read().format(day=day))
+                    f.write(tpl.read().replace('{day}', day))
 
     file_path = '{}/test.txt'.format(path)
     if not Path(file_path).is_file():
