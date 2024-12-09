@@ -14,7 +14,6 @@ class Day9:
         for i in range(0, len(self._input), 2):
             blocks += chr(i // 2 + self.offset) * int(self._input[i])
             blocks += '.' * int(self._input[i + 1])
-        pass
 
         while blocks.count('.'):
             if blocks[-1] == '.':
