@@ -16,16 +16,16 @@ class Day6:
 
     def solve(self):
         path = self.get_path()
-        loop_count = 0
-        for path_x, path_y, path_dx, path_dy in tqdm(path):
-            if self.grid[path_y][path_x] != '.':
+        loops = []
+        for path_x, path_y in tqdm(path):
+            if (path_x, path_y) in loops:
                 continue
 
             pos = self.start
             cur_path = [pos]
 
             temp_grid = [x[:] for x in self.grid]
-            temp_grid[path_y][path_x] = '#'
+            temp_grid[path_y][path_x] = 'O'
 
             while True:
                 x, y, dx, dy = pos
@@ -37,26 +37,31 @@ class Day6:
                         if pos not in cur_path:
                             cur_path.append(pos)
                         else:
-                            loop_count += 1
+                            if (path_x, path_y) not in loops:
+                                loops.append((path_x, path_y))
                             break
-                    elif next_pos == '#':
+                    elif next_pos in '#O':
                         i = self.directions.index((dx, dy))
                         if i == len(self.directions) - 1:
                             i = -1
                         pos = (x, y, *self.directions[i + 1])
                 except IndexError:
                     break
-        print(loop_count)
+        print(len(loops))
         '''
         Wrong answers
         2246
         2245
         2247
+        489
+        488
+        490
+        2065
         '''
 
     def get_path(self):
         pos = self.start
-        path = [pos]
+        path = [(pos[0], pos[1])]
         while True:
             x, y, dx, dy = pos
             next_x, next_y = x + dx, y + dy
@@ -64,8 +69,8 @@ class Day6:
                 next_pos = self.grid[next_y][next_x]
                 if next_pos in '.^':
                     pos = (next_x, next_y, dx, dy)
-                    if pos not in path:
-                        path.append(pos)
+                    if (next_x, next_y) not in path:
+                        path.append((next_x, next_y))
                 elif next_pos == '#':
                     i = self.directions.index((dx, dy))
                     if i == len(self.directions) - 1:
@@ -73,7 +78,7 @@ class Day6:
                     pos = (x, y, *self.directions[i + 1])
             except IndexError:
                 break
-        return path
+        return path[1:]
 
 
 if __name__ == '__main__':
