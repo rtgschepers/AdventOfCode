@@ -1,22 +1,19 @@
 from collections import Counter
 from timeit import timeit
 
-from tqdm import tqdm
-
 
 class Day11:
     def __init__(self):
         for line in [x.rstrip() for x in open('input.txt')]:
-            self.stones = dict(Counter([int(x) for x in line.split(' ')]))
+            self.stones = Counter([int(x) for x in line.split(' ')])
 
     def solve(self):
         seen_map = {}
 
-        for _ in tqdm(range(75)):
+        for _ in range(75):
             new_stones = {}
             for stone, count in self.stones.items():
-                mutation = seen_map.setdefault(stone, self.mutate_value(stone))
-                for m in mutation:
+                for m in seen_map.setdefault(stone, self.mutate_value(stone)):
                     new_stones[m] = new_stones.get(m, 0) + count
             self.stones = new_stones
         print(sum(self.stones.values()))
