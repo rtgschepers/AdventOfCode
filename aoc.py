@@ -1,5 +1,4 @@
 import argparse
-import os
 import webbrowser
 from pathlib import Path
 
@@ -34,7 +33,7 @@ def create_new_puzzle_files(year, day, open_browser):
     if open_browser:
         webbrowser.open(url, new=0, autoraise=True)
 
-    path = '{}/Day{}'.format(year, day)
+    path = '{}/Day{}'.format(year, day if int(day) > 9 else f'0{day}')
     Path(path).mkdir(parents=True, exist_ok=True)
 
     parts = [1, 2]
