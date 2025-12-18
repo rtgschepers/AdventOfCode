@@ -5,3 +5,4 @@
 !/requirements.txt
 !/template.txt
 config.py
+tests.py
